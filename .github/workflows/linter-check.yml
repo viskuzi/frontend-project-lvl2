@@ -1,0 +1,10 @@
+name: linter-check
+on: push
+jobs:
+  check:
+    # The type of machine to run the job on
+    runs-on: ubuntu-latest
+    steps:
+      - name: run linter
+        # Run Linter
+        run: make lint  
