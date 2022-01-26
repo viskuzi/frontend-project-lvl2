@@ -1,13 +1,20 @@
 import _ from 'lodash';
 import { readFileSync } from 'fs';
-import path from 'path';
+import { fileURLToPath } from 'url';
+import path, { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const gendiff = (firstFileName, secondFileName) => {
-  const firstFile = JSON.parse(readFileSync(path.resolve(firstFileName)));
-  const secondFile = JSON.parse(readFileSync(path.resolve(secondFileName)));
+  const pathToFirstFile = path.join(__dirname, '..', '__fixtures__', firstFileName);
+  const pathToSecondFile = path.join(__dirname, '..', '__fixtures__', secondFileName);
 
-  const firstFileKeys = Object.keys(firstFile);
-  const secondFileKeys = Object.keys(secondFile);
+  const firstObj = JSON.parse(readFileSync(pathToFirstFile), 'utf-8');
+  const secondObj = JSON.parse(readFileSync(pathToSecondFile), 'utf-8');
+
+  const firstFileKeys = Object.keys(firstObj);
+  const secondFileKeys = Object.keys(secondObj);
   const allKeys = _.union(firstFileKeys, secondFileKeys);
   const allSortedKeys = _.sortBy(allKeys);
   const commonProperties = {};
@@ -15,22 +22,23 @@ const gendiff = (firstFileName, secondFileName) => {
   const MINUS_OPERATOR = '-';
 
   allSortedKeys.forEach((key) => {
-    if (_.has(secondFile, key) && _.has(firstFile, key)) {
-      if (firstFile[key] === secondFile[key]) {
-        commonProperties[`  ${key}`] = firstFile[key];
+    if (_.has(secondObj, key) && _.has(firstObj, key)) {
+      if (firstObj[key] === secondObj[key]) {
+        commonProperties[`  ${key}`] = firstObj[key];
       } else {
-        commonProperties[`${MINUS_OPERATOR} ${key}`] = firstFile[key];
-        commonProperties[`${PLUS_OPERATOR} ${key}`] = secondFile[key];
+        commonProperties[`${MINUS_OPERATOR} ${key}`] = firstObj[key];
+        commonProperties[`${PLUS_OPERATOR} ${key}`] = secondObj[key];
       }
-    } else if (_.has(firstFile, key) && !_.has(secondFile, key)) {
-      commonProperties[`${MINUS_OPERATOR} ${key}`] = firstFile[key];
-    } else if (_.has(secondFile, key) && !_.has(firstFile, key)) {
-      commonProperties[`${PLUS_OPERATOR} ${key}`] = secondFile[key];
+    } else if (_.has(firstObj, key) && !_.has(secondObj, key)) {
+      commonProperties[`${MINUS_OPERATOR} ${key}`] = firstObj[key];
+    } else if (_.has(secondObj, key) && !_.has(firstObj, key)) {
+      commonProperties[`${PLUS_OPERATOR} ${key}`] = secondObj[key];
     }
   });
 
-  const result = JSON.stringify(commonProperties, null, ' ');
-  return result.replace(/"/g, '');
+  const result = JSON.stringify(commonProperties, null, 2);
+  return result.replace(/"/g, '').replace(/,/g, '');
 };
 
 export default gendiff;
+gendiff('file1.json', 'file2.json');

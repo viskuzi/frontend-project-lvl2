@@ -14,20 +14,20 @@ jobs:
         node-version: [16.x]
 
     steps:
-        # Check-out repository under GitHub workspace
-        # https://github.com/actions/checkout
+        # Клонируем репозиторий
       - uses: actions/checkout@v2
         # Step's name
       - name: Use Node.js ${{ matrix.node-version }}
-        # Configures the node version used on GitHub-hosted runners
-        # https://github.com/actions/setup-node
+        # Устанавливаем Node.js
         uses: actions/setup-node@v1
-        # The Node.js version to configure
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install
-        # Install project
+        # Ставим зависимости
         run:  make install
       - name: Run linter
-        # Run Linter
+        # Запускаем линтер
         run: make lint
+      - name: Run tests
+        # Запускаем тесты
+        run: npm test  
