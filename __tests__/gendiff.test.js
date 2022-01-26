@@ -1,7 +1,7 @@
+/* eslint-disable no-undef */
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
-import { expect, test } from '@jest/globals';
 import gendiff from '../src/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
