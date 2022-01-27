@@ -28,7 +28,8 @@
   "dependencies": {
     "@hexlet/immutable-fs-trees": "*",
     "commander": "^8.3.0",
-    "lodash": "^4.17.21",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   }
 }

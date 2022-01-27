@@ -1,17 +1,9 @@
 import _ from 'lodash';
-import { readFileSync } from 'fs';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import parser from './parsers.js';
 
 const gendiff = (firstFileName, secondFileName) => {
-  const pathToFirstFile = path.join(__dirname, '..', '__fixtures__', firstFileName);
-  const pathToSecondFile = path.join(__dirname, '..', '__fixtures__', secondFileName);
-
-  const firstObj = JSON.parse(readFileSync(pathToFirstFile), 'utf-8');
-  const secondObj = JSON.parse(readFileSync(pathToSecondFile), 'utf-8');
+  const firstObj = parser(firstFileName);
+  const secondObj = parser(secondFileName);
 
   const firstFileKeys = Object.keys(firstObj);
   const secondFileKeys = Object.keys(secondObj);
