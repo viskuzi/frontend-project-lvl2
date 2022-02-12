@@ -1,7 +1,8 @@
+/* eslint-disable no-undef */
 import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
-import stringify from '../src/decisionOfValik';
+import stringify from '../src/decisionOfValik.js';
 
 const object = { hello: 'world', is: true, nested: 5 };
 const json = { hello: 'world', is: true, nested: { count: 5 } };

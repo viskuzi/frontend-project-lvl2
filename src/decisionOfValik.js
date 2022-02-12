@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const stringify = (data, replacer = ' ', spacesCount = 1) => {
   if (typeof data !== 'object') {
     return data.toString();
