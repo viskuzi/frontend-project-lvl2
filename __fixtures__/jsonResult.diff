@@ -1,0 +1,7 @@
+{
+|-|-hello: world
+|-|-is: true
+|-|-nested: {
+|-|-|-|-count: 5
+|-|-}
+}

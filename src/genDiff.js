@@ -33,4 +33,3 @@ const gendiff = (firstFileName, secondFileName) => {
 };
 
 export default gendiff;
-gendiff('file1.json', 'file2.json');
