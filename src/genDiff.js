@@ -76,5 +76,5 @@ const gendiff = (firstFileName, secondFileName, formatFunction) => {
 
   return iter(firstObject, secondObject, 1);
 };
-gendiff('file1.json', 'file2.json');
+
 export default gendiff;
