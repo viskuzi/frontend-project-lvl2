@@ -4,17 +4,22 @@ import _ from 'lodash';
 import parser from './parsers.js';
 
 
+
 const gendiff = (firstFileName, secondFileName, formatFunction) => {
   const firstObject = parser(firstFileName);
   const secondObject = parser(secondFileName);
-   
+
+  const formatFunction = (key, value, depth = 1, replacer = '**', replacersCount = 1) => {
+    return `${replacer.repeat(replacersCount * depth)}  ${key}: ${value}`;
+  };
+
   const iterPrint = (obj, depth = 1, replacer = '    ', replacersCount = 1) => {
     const lines = [];
     const fileKeys = Object.keys(obj);
-    const sortedKeys = _.sortBy(fileKeys);
+    const sortedKeys = _.sortBy(fileKeys);gendiff
 
     sortedKeys.forEach((key) => {
-        if (_.isObject(obj[key])) {
+      if (_.isObject(obj[key])) {
         const line = iterPrint(obj[key], depth + 1);
         lines.push(`${replacer.repeat(replacersCount * depth)}${key}: ${line}`);
       } else {
@@ -36,12 +41,11 @@ const gendiff = (firstFileName, secondFileName, formatFunction) => {
     allSortedKeys.forEach((key) => {
       if (_.has(secondObj, key) && _.has(firstObj, key) && _.isObject(firstObj[key]) && _.isObject(secondObj[key])) {
         const line = iter(firstObj[key], secondObj[key], depth + 1);
-        lines.push(formatFunction(key, line, depth, replacer = '++', replacersCount));
-        // lines.push(formatFunction(key, line, depth, replacer = '++', replacersCount));
+        lines.push(formatFunction(key, line, depth, replacer, replacersCount));
+        //lines.push(`${replacer.repeat(replacersCount * depth)}  ${key}: ${line}`);
       } else if (_.has(secondObj, key) && _.has(firstObj, key) && !_.isObject(firstObj[key]) && !_.isObject(secondObj[key])) {
         if (firstObj[key] === secondObj[key]) {
-           lines.push(formatFunction(key, firstObj[key], depth, replacer = '++', replacersCount));
-          //  lines.push(`${replacer.repeat(replacersCount * depth)}  ${key}: ${firstObj[key]}`);
+          lines.push(`${replacer.repeat(replacersCount * depth)}  ${key}: ${firstObj[key]}`);
         } else {
           lines.push(`${replacer.repeat(replacersCount * depth)}${MINUS_OPERATOR} ${key}: ${firstObj[key]}`);
           lines.push(`${replacer.repeat(replacersCount * depth)}${PLUS_OPERATOR} ${key}: ${secondObj[key]}`);
@@ -76,5 +80,7 @@ const gendiff = (firstFileName, secondFileName, formatFunction) => {
 
   return iter(firstObject, secondObject, 1);
 };
-gendiff('file1.json', 'file2.json');
+
 export default gendiff;
+
+gendiff( 'file1.json', 'file2.json');
