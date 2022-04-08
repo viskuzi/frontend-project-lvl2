@@ -7,10 +7,9 @@ const chooseFormat = (obj, format = 'stylish') => {
     default:
       console.log('ERROR. Returned default format');
       return obj;
-  } 
+  }
 };
 
 export default chooseFormat;
 
-
-//const formatFunction = (depth, replacer, replacersCount)
+// const formatFunction = (depth, replacer, replacersCount)
