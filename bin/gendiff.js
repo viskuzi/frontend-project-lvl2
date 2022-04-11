@@ -11,7 +11,6 @@ program
   .option('-f, --format <type>', 'output for', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2, options = 'stylish') => {
-    console.log(options.format);
     switch (options.format) {
       case 'stylish':
         console.log(gendiff(filepath1, filepath2, stylishFormat));
