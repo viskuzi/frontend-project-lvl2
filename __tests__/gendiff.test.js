@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
 import gendiff from '../src/genDiff.js';
+import handleCommandLineProgram from '../src/MyFuckingAttempts.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,5 +20,5 @@ test('testing yaml files', () => {
 });
 
 test('testing complex json', () => {
-  expect(gendiff('file1.json', 'file2.json')).toEqual(readFile('expected_file.diff'));
+  expect(handleCommandLineProgram('file1.json', 'file2.json')).toEqual(readFile('expected_file.diff'));
 });

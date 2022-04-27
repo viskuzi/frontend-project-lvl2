@@ -3,7 +3,9 @@ import path, { dirname } from 'path';
 import yaml from 'js-yaml';
 import { fileURLToPath } from 'url';
 
-const parser = (fileName) => {
+// Function which retrieves JSON object given filename (entered by the user)
+// - fileName, the name of the file entered by the user
+const objectByFilename = (fileName) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const pathToFile = path.join(__dirname, '..', '__fixtures__', fileName);
@@ -17,4 +19,4 @@ const parser = (fileName) => {
   return obj;
 };
 
-export default parser;
+export default objectByFilename;
