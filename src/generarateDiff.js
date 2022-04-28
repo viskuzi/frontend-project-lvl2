@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import _ from 'lodash';
 
 // Creates value-to-value diff object
@@ -5,65 +6,56 @@ import _ from 'lodash';
 // - before, old value (plain)
 // - after, new value (plain)
 
-const createValueToValue = (key, before, after) => {
-  return { objectType: "valueToValue", key: key, oldValue: before, newValue: after };
-};
+const createValueToValue = (key, before, after) => ({
+  objectType: 'valueToValue', key, oldValue: before, newValue: after,
+});
 
 // Creates value-to-object diff object
 // - key, string name of the key
 // - value, old plain value
 // - obj, new object value
-const createValueToObject = (key, value, obj) => {
-  return { objectType: "valueToObject", key: key, plainValue: value, objectValue: obj };
-};
+const createValueToObject = (key, value, obj) => ({
+  objectType: 'valueToObject', key, plainValue: value, objectValue: obj,
+});
 
 // Creates value-to-object diff object
 // - key, string name of the key
 // - obj, old object value
 // - value, new plain value
 
-const createObjectToValue = (key, obj, value) => {
-  return { objectType: "objectToValue", key: key, objectValue: obj, plainValue: value };
-};
+const createObjectToValue = (key, obj, value) => ({
+  objectType: 'objectToValue', key, objectValue: obj, plainValue: value,
+});
 
 // Creates removed-object diff object
 // - key, string name of the key
 // - obj, old object value
-const createRemovedObject = (key, obj) => {
-  return { objectType: "removedObject", key: key, value: obj };
-};
+const createRemovedObject = (key, obj) => ({ objectType: 'removedObject', key, value: obj });
 
 // Creates removed-value diff object
 // - key, string name of the key
 // - value, old plain value
-const createRemovedValue = (key, value) => {
-  return { objectType: "removedValue", key: key, value: value };
-};
+const createRemovedValue = (key, value) => ({ objectType: 'removedValue', key, value });
 
 // Creates added-object diff object
 // - key, string name of the key
 // - obj, new object value
-const createAddedObject = (key, obj) => {
-  return { objectType: "addedObject", key: key, value: obj };
-};
+const createAddedObject = (key, obj) => ({ objectType: 'addedObject', key, value: obj });
 
 // Creates added-value diff object
 // - key, string name of the key
 // - obj, new plain value
-const createAddedValue = (key, value) => {
-  return { objectType: "addedValue", key: key, value: value };
-};
+const createAddedValue = (key, value) => ({ objectType: 'addedValue', key, value });
 
 // Created obj-diff diff object (object is present before and after)
 // - key, string name of the key
 // - diffObjectArray, array of diff objects of different kinds
-const createObjDiff = (key, diffObjectArray) => {
-  return { objectType: "objDiff", key: key, diffs: diffObjectArray };
-};
+const createObjDiff = (key, diffObjectArray) => ({ objectType: 'objDiff', key, diffs: diffObjectArray });
 
 // Function which generates the structure representing the difference between 2 json objects
 // - firstObject, the first json object
 // - secondObject, the second json object
+
 const generateDifferenceStructure = (firstObject, secondObject) => {
   const firstFileKeys = Object.keys(firstObject);
   const secondFileKeys = Object.keys(secondObject);

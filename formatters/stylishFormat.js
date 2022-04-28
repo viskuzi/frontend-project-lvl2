@@ -5,20 +5,20 @@ const stylish = (base, depth = 1, replacer = '  ') => {
   const MINUS_OPERATOR = '-';
   const result = [];
 
-  const iterPrint = (obj, DEPTH = 1, REPLACER = '    ') => {
+  const iterPrint = (obj, DEPTH = 1, REPLACERs = '    ') => {
     const lines = [];
     const fileKeys = Object.keys(obj);
 
     fileKeys.forEach((key) => {
       if (_.isObject(obj[key])) {
         const line = iterPrint(obj[key], DEPTH + 1);
-        lines.push(`${REPLACER.repeat(DEPTH)}${key}: ${line}`);
+        lines.push(`${REPLACERs.repeat(DEPTH)}${key}: ${line}`);
       } else {
-        lines.push(`${REPLACER.repeat(DEPTH)}${key}: ${obj[key]}`);
+        lines.push(`${REPLACERs.repeat(DEPTH)}${key}: ${obj[key]}`);
       }
     });
     const shiftedLines = lines.map((line) => `\n${line}`);
-    return `{${shiftedLines.join('')}\n${REPLACER.repeat(DEPTH - 1)}}`;
+    return `{${shiftedLines.join('')}\n${REPLACERs.repeat(DEPTH - 1)}}`;
   };
 
   base.forEach((element) => {
@@ -54,6 +54,7 @@ const stylish = (base, depth = 1, replacer = '  ') => {
   });
   const shiftedLines = result.map((res) => `\n${res}`);
 
-  return `{${shiftedLines.join('')}\n${replacer.repeat(2 * (depth - 1))}}`;
+  return `{${shiftedLines.join('')}\n${replacer.repeat((depth - 1) * 2)}}`;
 };
+
 export default stylish;
