@@ -1,11 +1,3 @@
-import generateDifferenceStructure from '../src/generarateDiff.js';
-import objectByFilename from '../src/parsers.js';
-
-const firstObject = objectByFilename('file1.json');
-const secondObject = objectByFilename('file2.json');
-const diffStructure = generateDifferenceStructure(firstObject, secondObject);
-// console.log(diffStructure);
-
 const plain = (base, sum = '') => {
   const defineTypeOfValue = (value) => {
     if (value === null) {

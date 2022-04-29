@@ -1,0 +1,44 @@
+{
+    COMMON: {
+      + FOLLOW: FALSE
+        SETTING1: VALUE 1
+      - SETTING2: 200
+      - SETTING3: TRUE
+      + SETTING3: NULL
+      + SETTING4: BLAH BLAH
+      + SETTING5: {
+            KEY5: VALUE5
+        }
+        SETTING6: {
+            DOGE: {
+              - WOW: 
+              + WOW: SO MUCH
+            }
+            KEY: VALUE
+          + OPS: VOPS
+        }
+    }
+    GROUP1: {
+      - BAZ: BAS
+      + BAZ: BARS
+        FOO: BAR
+      - NEST: {
+            KEY: VALUE
+        }
+      + NEST: STR
+    }
+  - GROUP2: {
+        ABC: 12345
+        DEEP: {
+            ID: 45
+        }
+    }
+  + GROUP3: {
+        DEEP: {
+            ID: {
+                NUMBER: 45
+            }
+        }
+        FEE: 100500
+    }
+}

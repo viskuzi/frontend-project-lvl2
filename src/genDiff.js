@@ -2,7 +2,6 @@
 /* eslint-disable max-len */
 import _ from 'lodash';
 import parser from './parsers.js';
-import stylishFormat from '../formatters/stylishFormat.js';
 
 const gendiff = (firstFileName, secondFileName, formatFunction) => {
   const firstObject = parser(firstFileName);
