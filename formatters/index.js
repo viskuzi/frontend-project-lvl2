@@ -1,5 +1,6 @@
 import stylish from './stylishFormat.js';
 import plain from './plainFormat.js';
+import capslock from './capslockFormat.js';
 import objectByFilename from '../src/parsers.js';
 import generateDifferenceStructure from '../src/generarateDiff.js';
 
@@ -15,9 +16,14 @@ const handleCommandLineProgram = (filepath1, filepath2, formatString = 'stylish'
 
   if (formatString === 'stylish') {
     return stylish(diffStructure);
+  } if (formatString === 'plain') {
+    return plain(diffStructure);
+  } if (formatString === 'capslock') {
+    return capslock(diffStructure);
   }
 
-  return plain(diffStructure);
+  console.log('You entered wrong type of format. Return result in stylish format');
+  return stylish(diffStructure);
 };
 
 export default handleCommandLineProgram;
