@@ -25,3 +25,7 @@ test('testing plain format', () => {
 test('testing capslock format', () => {
   expect(handleCommandLineProgram('file1.json', 'file2.json', 'capslock')).toEqual(readFile('capslockFormat.diff'));
 });
+
+test('testing json format', () => {
+  expect(handleCommandLineProgram('file1.json', 'file2.json', 'json')).toEqual(readFile('jsonFormat.diff'));
+});

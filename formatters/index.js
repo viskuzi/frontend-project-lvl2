@@ -1,3 +1,4 @@
+import json from './jsonFormat.js';
 import stylish from './stylishFormat.js';
 import plain from './plainFormat.js';
 import capslock from './capslockFormat.js';
@@ -20,6 +21,8 @@ const handleCommandLineProgram = (filepath1, filepath2, formatString = 'stylish'
     return plain(diffStructure);
   } if (formatString === 'capslock') {
     return capslock(diffStructure);
+  } if (formatString === 'json') {
+    return json(diffStructure);
   }
 
   console.log('You entered wrong type of format. Return result in stylish format');
