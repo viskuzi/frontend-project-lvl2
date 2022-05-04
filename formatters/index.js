@@ -14,19 +14,18 @@ const gendiff = (filepath1, filepath2, formatString) => {
   const firstObject = getObjectByFilename(filepath1);
   const secondObject = getObjectByFilename(filepath2);
   const diffStructure = generateDifferenceStructure(firstObject, secondObject);
-
-  if (formatString === 'stylish') {
-    return stylish(diffStructure);
-  } if (formatString === 'plain') {
-    return plain(diffStructure);
-  } if (formatString === 'capslock') {
-    return capslock(diffStructure);
-  } if (formatString === 'json') {
-    return json(diffStructure);
+  switch (formatString) {
+    case 'stylish':
+      return stylish(diffStructure);
+    case 'plain':
+      return plain(diffStructure);
+    case 'json':
+      return json(diffStructure);
+    case 'capslock':
+      return capslock(diffStructure);
+    default:
+      throw new Error(`Unknown format type: '${formatString}'!`);
   }
-
-  console.log('You entered the wrong type of format. Return the result in stylish format');
-  return stylish(diffStructure);
 };
 
 export default gendiff;
