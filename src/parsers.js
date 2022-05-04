@@ -9,14 +9,17 @@ const getObjectByFilename = (fileName) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const pathToFile = path.join(__dirname, '..', '__fixtures__', fileName);
-  let obj;
+
   const extention = path.extname(fileName);
-  if (extention === '.yml' || extention === '.yaml') {
-    obj = yaml.load(readFileSync(pathToFile), 'utf-8');
-  } else if (path.extname(fileName) === '.json') {
-    obj = JSON.parse(readFileSync(pathToFile), 'utf-8');
+  switch (extention) {
+    case '.json':
+      return JSON.parse(readFileSync(pathToFile), 'utf-8');
+    case '.yml':
+    case '.yaml':
+      return yaml.load(readFileSync(pathToFile), 'utf-8');
+    default:
+      throw new Error(`Format '${extention}' is not supported.`);
   }
-  return obj;
 };
 
 export default getObjectByFilename;
