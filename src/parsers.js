@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 // Function which retrieves JSON object given filename (entered by the user)
 // - fileName, the name of the file entered by the user
-const objectByFilename = (fileName) => {
+const getObjectByFilename = (fileName) => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const pathToFile = path.join(__dirname, '..', '__fixtures__', fileName);
@@ -19,4 +19,4 @@ const objectByFilename = (fileName) => {
   return obj;
 };
 
-export default objectByFilename;
+export default getObjectByFilename;

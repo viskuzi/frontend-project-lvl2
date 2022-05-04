@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import program from 'commander';
-import handleCommandLineProgram from '../formatters/index.js';
+import gendiff from '../formatters/index.js';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -12,7 +12,7 @@ program
   //  - filepath2 - path for file 2 on computer filesystem
   //  - options - object which contains all the options (see .option() function) sup by this program
   .action((filepath1, filepath2, options = 'stylish') => {
-    console.log(handleCommandLineProgram(filepath1, filepath2, options.format));
+    console.log(gendiff(filepath1, filepath2, options.format));
   });
 
 program.parse();
