@@ -10,7 +10,7 @@ import generateDifferenceStructure from '../src/generarateDiff.js';
 //  - filepath2 - path for file 2 on computer filesystem
 //  - formatString - unique string passed by user as an option for --format
 
-const gendiff = (filepath1, filepath2, formatString) => {
+const gendiff = (filepath1, filepath2, formatString = 'stylish') => {
   const firstObject = getObjectByFilename(filepath1);
   const secondObject = getObjectByFilename(filepath2);
   const diffStructure = generateDifferenceStructure(firstObject, secondObject);
