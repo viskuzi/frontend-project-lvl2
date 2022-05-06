@@ -6,9 +6,14 @@ import { fileURLToPath } from 'url';
 // Function which retrieves JSON object by given filename (entered by the user)
 // - fileName, the name of the file entered by the user
 const getObjectByFilename = (fileName) => {
+  console.log('fileName', fileName);
   const __filename = fileURLToPath(import.meta.url);
+  console.log('__fileName', __filename);
+
   const __dirname = dirname(__filename);
+  console.log('dirname', __dirname);
   const pathToFile = path.join(__dirname, '..', '__fixtures__', fileName);
+  console.log('pathtofile', pathToFile);
   const yamlString = readFileSync(pathToFile);
   const extention = path.extname(fileName);
   switch (extention) {
