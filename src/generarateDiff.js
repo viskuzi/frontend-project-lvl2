@@ -62,28 +62,30 @@ const generateDifferenceStructure = (firstObject, secondObject) => {
   const allKeys = _.union(firstFileKeys, secondFileKeys);
   const allSortedKeys = _.sortBy(allKeys);
 
-  const commonDiffs = [];
-  allSortedKeys.forEach((key) => {
+  const commonDiffs = allSortedKeys.forEach((key) => {
     if (_.has(secondObject, key) && !_.has(firstObject, key) && !_.isObject(secondObject[key])) {
-      commonDiffs.push(createAddedValue(key, secondObject[key]));
-    } else if (_.has(secondObject, key) && !_.has(firstObject, key) && _.isObject(secondObject[key])) {
-      commonDiffs.push(createAddedObject(key, secondObject[key]));
-    } else if (!_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key])) {
-      commonDiffs.push(createRemovedValue(key, firstObject[key]));
-    } else if (!_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key])) {
-      commonDiffs.push(createRemovedObject(key, firstObject[key]));
-    } else if (_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key]) && !_.isObject(secondObject[key])) {
-      commonDiffs.push(createObjectToValue(key, firstObject[key], secondObject[key]));
-    } else if (_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key]) && _.isObject(secondObject[key])) {
-      commonDiffs.push(createValueToObject(key, firstObject[key], secondObject[key]));
-    } else if (_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key]) && !_.isObject(secondObject[key])) {
-      commonDiffs.push(createValueToValue(key, firstObject[key], secondObject[key]));
-    } else if (_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key]) && _.isObject(secondObject[key])) {
+      return createAddedValue(key, secondObject[key]);
+    } if (_.has(secondObject, key) && !_.has(firstObject, key) && _.isObject(secondObject[key])) {
+      return createAddedObject(key, secondObject[key]);
+    } if (!_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key])) {
+      return createRemovedValue(key, firstObject[key]);
+    } if (!_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key])) {
+      return createRemovedObject(key, firstObject[key]);
+    } if (_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key]) && !_.isObject(secondObject[key])) {
+      return createObjectToValue(key, firstObject[key], secondObject[key]);
+    } if (_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key]) && _.isObject(secondObject[key])) {
+      return createValueToObject(key, firstObject[key], secondObject[key]);
+    } if (_.has(secondObject, key) && _.has(firstObject, key) && !_.isObject(firstObject[key]) && !_.isObject(secondObject[key])) {
+      return createValueToValue(key, firstObject[key], secondObject[key]);
+    } if (_.has(secondObject, key) && _.has(firstObject, key) && _.isObject(firstObject[key]) && _.isObject(secondObject[key])) {
       const cardArray = generateDifferenceStructure(firstObject[key], secondObject[key]);
       const envelope = createObjDiff(key, cardArray);
-      commonDiffs.push(envelope);
+      return envelope;
     }
+
+    return allSortedKeys;
   });
+
   return commonDiffs;
 };
 
