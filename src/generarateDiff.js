@@ -62,7 +62,7 @@ const generateDifferenceStructure = (firstObject, secondObject) => {
   const allKeys = _.union(firstFileKeys, secondFileKeys);
   const allSortedKeys = _.sortBy(allKeys);
 
-  const commonDiffs = allSortedKeys.forEach((key) => {
+  const commonDiffs = allSortedKeys.map((key) => {
     if (_.has(secondObject, key) && !_.has(firstObject, key) && !_.isObject(secondObject[key])) {
       return createAddedValue(key, secondObject[key]);
     } if (_.has(secondObject, key) && !_.has(firstObject, key) && _.isObject(secondObject[key])) {

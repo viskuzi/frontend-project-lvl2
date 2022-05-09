@@ -10,7 +10,7 @@ const plain = (base, acc = '') => {
     return value;
   };
 
-  const result = base.forEach((element) => {
+  const elementsArray = base.map((element) => {
     if (element.objectType === 'removedObject') {
       return `Property '${acc}${element.key}' was removed`;
     } if (element.objectType === 'removedValue') {
@@ -21,10 +21,8 @@ const plain = (base, acc = '') => {
       return `Property '${acc}${element.key}' was added with value: [complex value]`;
     } if (element.objectType === 'objectToValue') {
       return `Property '${acc}${element.key}' was updated. From [complex value] to ${defineTypeOfValue(element.plainValue)}`;
-    } if (element.objectType === 'valueToValue') {
-      if (element.oldValue !== element.newValue) {
-        return `Property '${acc}${element.key}' was updated. From ${defineTypeOfValue(element.oldValue)} to ${defineTypeOfValue(element.newValue)}`;
-      }
+    } if (element.objectType === 'valueToValue' && element.oldValue !== element.newValue) {
+      return `Property '${acc}${element.key}' was updated. From ${defineTypeOfValue(element.oldValue)} to ${defineTypeOfValue(element.newValue)}`;
     } if (element.objectType === 'valueToObject') {
       return `Property '${acc}${element.key}' was updated. From ${defineTypeOfValue(element.plainValue)} to [complex value]`;
     } if (element.objectType === 'objDiff') {
@@ -33,10 +31,13 @@ const plain = (base, acc = '') => {
       return stringWithComplexProperty;
     }
 
-    return base;
+    return null;
   });
 
-  return result.flat(Infinity).join('\n');
+  const result = elementsArray
+    .filter((elem) => elem !== null);
+
+  return result.join('\n');
 };
 
 export default plain;
