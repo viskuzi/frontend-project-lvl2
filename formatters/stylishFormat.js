@@ -1,16 +1,15 @@
 import _ from 'lodash';
 
 const getComplexObjectStructure = (obj, DEPTH = 1, REPLACERs = '    ') => {
-  const lines = [];
   const fileKeys = Object.keys(obj);
 
-  fileKeys.forEach((key) => {
+  const lines = fileKeys.map((key) => {
     if (_.isObject(obj[key])) {
       const line = getComplexObjectStructure(obj[key], DEPTH + 1);
-      lines.push(`${REPLACERs.repeat(DEPTH)}${key}: ${line}`);
-    } else {
-      lines.push(`${REPLACERs.repeat(DEPTH)}${key}: ${obj[key]}`);
+      return `${REPLACERs.repeat(DEPTH)}${key}: ${line}`;
     }
+
+    return `${REPLACERs.repeat(DEPTH)}${key}: ${obj[key]}`;
   });
   const shiftedLines = lines.map((line) => `\n${line}`);
   return `{${shiftedLines.join('')}\n${REPLACERs.repeat(DEPTH - 1)}}`;
