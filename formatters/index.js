@@ -3,7 +3,7 @@ import stylish from './stylishFormat.js';
 import plain from './plainFormat.js';
 import capslock from './capslockFormat.js';
 import getObjectByFilename from '../src/parsers.js';
-import generateDifferenceStructure from '../src/generarateDiff.js';
+import generateDifferenceStructure from '../src/generateDiff.js';
 
 // Function which handles command line program overall
 //  - filepath1 - path for file 1 on computer filesystem

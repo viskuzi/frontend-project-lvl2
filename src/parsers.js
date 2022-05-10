@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 // Function which retrieves JSON object by given filename (entered by the user)
 // - fileName, full path to fileName;
-const detectFileNamePath = (filename) => {
+const detectFileBuffer = (filename) => {
   const handledFileName = filename.split('/');
   if (handledFileName.length > 1) {
     return readFileSync(filename);
@@ -18,7 +18,7 @@ const detectFileNamePath = (filename) => {
 
 const getObjectByFilename = (fileName) => {
   const extention = path.extname(fileName);
-  const fileBuffer = detectFileNamePath(fileName);
+  const fileBuffer = detectFileBuffer(fileName);
 
   switch (extention) {
     case '.json':
