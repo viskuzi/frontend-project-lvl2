@@ -3,18 +3,32 @@ import path, { dirname } from 'path';
 import yaml from 'js-yaml';
 import { fileURLToPath } from 'url';
 
-const parser = (fileName) => {
+// Function which retrieves JSON object by given filename (entered by the user)
+// - fileName, full path to fileName;
+const detectFileBuffer = (filename) => {
+  const handledFileName = filename.split('/');
+  if (handledFileName.length > 1) {
+    return readFileSync(filename);
+  }
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-  const pathToFile = path.join(__dirname, '..', '__fixtures__', fileName);
-  let obj;
-  const extention = path.extname(fileName);
-  if (extention === '.yml' || extention === '.yaml') {
-    obj = yaml.load(readFileSync(pathToFile), 'utf-8');
-  } else if (path.extname(fileName) === '.json') {
-    obj = JSON.parse(readFileSync(pathToFile), 'utf-8');
-  }
-  return obj;
+  const pathToFile = path.join(__dirname, '..', '__fixtures__', filename);
+  return readFileSync(pathToFile);
 };
 
-export default parser;
+const getObjectByFilename = (fileName) => {
+  const extention = path.extname(fileName);
+  const fileBuffer = detectFileBuffer(fileName);
+
+  switch (extention) {
+    case '.json':
+      return JSON.parse(fileBuffer, 'utf-8');
+    case '.yml':
+    case '.yaml':
+      return yaml.load(fileBuffer, 'utf-8');
+    default:
+      throw new Error(`Format '${extention}' is not supported.`);
+  }
+};
+
+export default getObjectByFilename;
