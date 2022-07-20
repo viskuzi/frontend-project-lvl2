@@ -3,7 +3,7 @@
 import _ from 'lodash';
 import parser from './parsers.js';
 
-const stringify = (firstFileName, secondFileName) => {
+const stylish = (firstFileName, secondFileName) => {
   const firstObject = parser(firstFileName);
   const secondObject = parser(secondFileName);
 
@@ -74,4 +74,4 @@ const stringify = (firstFileName, secondFileName) => {
   return iter(firstObject, secondObject, 1);
 };
 
-export default stringify;
+export default stylish;
